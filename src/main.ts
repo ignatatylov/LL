@@ -9,12 +9,11 @@ const main = () => {
     ]
 
     const grammar = indexGrammar(grammarSample.join('\n'))
-    console.log(grammar)
+    // console.log(grammar)
 
     const table = parseGrammar(grammar)
     console.log(table)
 }
-
 
 if (require.main === module) {
     main()

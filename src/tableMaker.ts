@@ -43,11 +43,6 @@ const parseString = (input: string, table: ParsingTable): string => {
             let nextRow = table.find(r => r.index === tableIndex + 1); // Берём следующую строку
             if (nextRow) stack.push(nextRow.index);
         } 
-        // Обработка ε-перехода
-        else if (row.guidingSymbols.includes('ε')) {
-            if (row.shift) pointer++; // Если ε-переход, но требует смещения — двигаем указатель
-            if (row.pointer !== -1) stack.push(row.pointer); // Двигаемся дальше по таблице
-        }
         // Если ничего не подошло — ошибка
         else {
             return `Error: Unexpected '${currentChar}', expected one of [${row.guidingSymbols.join(', ')}]`;
@@ -57,6 +52,7 @@ const parseString = (input: string, table: ParsingTable): string => {
     // Если указатель не дошёл до конца строки, значит входной текст обработан не полностью
     return pointer === input.length ? `OK\nTrace:\n${trace.join('\n')}` : `Error\nTrace:\n${trace.join('\n')}`;
 };
+
 export {
     parseString, ParsingTable
 }
